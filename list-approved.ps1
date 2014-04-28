@@ -29,5 +29,5 @@ $updateScope.ApprovedStates =
 
 $approved = $wsus.GetUpdates($updateScope)
 if ($approved -ne $null) {
-    $approved | Wsus-Update-Info | Write-Output
+    $approved | Wsus-Update-Info
 }

@@ -28,7 +28,11 @@ Filter Wsus-Update-From-Id($wsus)
 # Given an IUpdate, returns a string suitable for logging or display.
 Filter Wsus-Update-Info()
 {
-    return "$($_ | Wsus-Update-Id);$($_.CreationDate.ToShortDateString());$($_.Title)"
+    # Sanitize the title strings.
+    # KB2416754's title had a newline that threw things off.
+    $title = [System.Text.RegularExpressions.Regex]::Replace(
+        $_.Title, "[^0-9a-zA-Z_ !@#%&*()+=/:,.<>{}\[\]-]", "")
+    return "$($_ | Wsus-Update-Id);$($_.CreationDate.ToShortDateString());$title"
 }
 
 # Given a semicolon-separated line from Wsus-Update-Info, returns just the

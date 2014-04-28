@@ -19,5 +19,5 @@ $unapprovedUpdates = $wsus.GetUpdates() | where {
     $_.IsDeclined -ne $True -and $_.IsApproved -ne $True
 }
 if ($unapprovedUpdates -ne $null) {
-    $unapprovedUpdates | Wsus-Update-Info | Write-Output
+    $unapprovedUpdates | Wsus-Update-Info
 }
